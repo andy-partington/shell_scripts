@@ -37,6 +37,7 @@ if [ "$currentip" != "$ip" ] ; then
 	    exit $exit_status
 	else
     	echo "IP Address updated successfully"
+	fi
 else
     echo "IP Address not changed"
 fi
