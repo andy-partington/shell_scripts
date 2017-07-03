@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Update an A record on Ddigital Ocean via their API.
+# Update an A record on Digital Ocean via their API.
 # API documents here:  https://developers.digitalocean.com/documentation/v2
 
 # Load config file with api/domain etc
@@ -25,7 +25,8 @@ api_key=$API_KEY
 currentip="$(curl -s -X GET -H "Content-Type: application/json" -H "Authorization: Bearer $api_key" "https://api.digitalocean.com/v2/domains/$domain_id/records/$record_id" | jq -r ".domain_record"  | jq -r ".data")"
 
 # Retrieve your current IP
-# The -s makes it quiet and the -4 for IPv4
+# The -s makes it quiet and the -4 for IPv4 
+# I want to add different ways of grabbing IP's so will implement  dig +short myip.opendns.com @resolver1.opendns.com as initial option and icanhaz as secondary. 
 ip="$(curl -s -4 icanhazip.com)"
 
 if [ "$currentip" != "$ip" ] ; then 
