@@ -22,6 +22,7 @@ api_key=$API_KEY
 
 # Get your current A record for the record_id to compare against your current IP
 # This is dependant on a program called jq ( apt install jq ) may do this differently in the future.
+# Maybe get the current IP via dig instead of an API call dig +short sub.domain.tld @resolver1.opendns.com
 currentip="$(curl -s -X GET -H "Content-Type: application/json" -H "Authorization: Bearer $api_key" "https://api.digitalocean.com/v2/domains/$domain_id/records/$record_id" | jq -r ".domain_record"  | jq -r ".data")"
 
 # Retrieve your current IP
