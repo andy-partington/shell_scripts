@@ -1,10 +1,25 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+
+# Copyright (c) 2017 Andy Partington
+
+# This program is free software: you can redistribute it and/or modify  
+# it under the terms of the GNU General Public License as published by  
+# the Free Software Foundation, version 3.
+#
+# This program is distributed in the hope that it will be useful, but 
+# WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License 
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
 
 # Update an A record on Digital Ocean via their API.
 # API documents here:  https://developers.digitalocean.com/documentation/v2
 
 # Load config file with api/domain etc
-
 source .do_creds
 
 # Your domain name
@@ -33,10 +48,9 @@ ip="$(curl -s -4 icanhazip.com)"
 if [ "$currentip" != "$ip" ] ; then 
     echo "IP Address differs from the A record, updating A record"
     curl -s -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $api_key" -d "{\"data\":\"$ip\"}" "https://api.digitalocean.com/v2/domains/$domain_id/records/$record_id"
-    exit_status = $?
-	if [ $exit_status != 0 ]
+	if [ $? != 0 ]
 	  then
-	    exit $exit_status
+	    exit $?
 	else
     	echo "IP Address updated successfully"
 	fi
